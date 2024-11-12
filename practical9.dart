@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State {
   var jsonData;
   Future loadJsonAsset() async {
-    final String jsonString = await rootBundle.loadString('assets/k.json');
+    final String jsonString = await rootBundle.loadString('assets/aastha.json');
     var data = jsonDecode(jsonString);
     setState(() {
       jsonData = data;
