@@ -21,7 +21,7 @@ class _MyAppState extends State {
   }
 
   Future loadData() async {
-    String fileText = await rootBundle.loadString('assets/we.txt');
+    String fileText = await rootBundle.loadString('assets/AASTHA VR ASSIGNMENT.txt');
     setState(() {
       _fileContents = fileText;
     });
