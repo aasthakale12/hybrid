@@ -1,0 +1,132 @@
+ASSIGNMENT
+
+
+Task 1: Setting Up Your Unity Project & Configuring the VR Environment
+Step 1: Installing Unity Hub and Unity Editor
+Download Unity Hub: Start by downloading and installing Unity Hub.
+Install Unity Editor: After setting up Unity Hub, install Unity Editor version 2021.3.12f1 by choosing it from the available versions list.
+Step 2: Creating a New Unity Project
+Open Unity Hub: Launch Unity Hub and navigate to the "Projects" tab.
+Create a New Project:
+Click on the New Project button.
+Choose the 3D Core Render Pipeline template.
+Give your project a meaningful name.
+Set Editor Version: Before creating, ensure that the Unity version 2021.3.12f1 is selected.
+Create the Project: Once everything is set, click Create Project.
+Step 3: Installing Required Packages
+Open Package Manager: Once your project is set up, go to Window → Package Manager.
+Access Unity Registry: In the Package Manager, switch to the "Unity Registry" tab to browse available packages.
+Search for XR Interaction Toolkit:
+Type "XR Interaction Toolkit" into the search bar.
+Install the latest version.
+If the latest version is unavailable, manually install it:
+Copy the package name.
+Click on the + icon and select Add package by name.
+Paste the name and hit Add.
+Enable New Input System: A prompt will appear asking if you want to enable the new Input System. Click Yes.
+Step 4: Importing Starter Assets and Device Simulator
+Install Starter Assets: Go to the Samples section under the XR Interaction Toolkit package and import the Starter Assets.
+Install XR Device Simulator: Similarly, import the XR Device Simulator from the Samples section.
+
+Task 2: Creating the Ground Plane
+Step 5: Importing Assets from the Unity Asset Store
+Download Low Poly Nature Pack:
+Head over to the Unity Asset Store and search for "Low Poly Nature Pack."
+Click Add to My Assets and then Open in Unity.
+Import the Asset: Once it’s downloaded, click Import to bring the pack into your project.
+Step 6: Setting Up the Scene with Low Poly Nature
+Open Low Poly Nature Scene:
+In the Project window, go to Assets → Low Poly Nature → Scenes.
+Drag the Demo Scene into your Hierarchy window.
+Duplicate and Edit the Scene:
+Select the Demo Scene and press Ctrl + D to duplicate it.
+Rename this copy and move it to your Sample Scene for editing.
+
+Task 3: Adding a Skybox
+Step 7: Importing a Skybox from the Unity Asset Store
+Download a Skybox Asset:
+Open the Asset Store from Window → Asset Store.
+Search for a Skybox pack that suits your project.
+Once you find one, click Add to My Assets.
+Import Skybox into Unity:
+After adding it to your assets, click Open in Unity to open the Package Manager.
+In the Package Manager, click Download (if needed) and then Import to add the Skybox to your project.
+Apply Skybox to Your Scene:
+Go to Edit → Render Settings → Skybox Material.
+In the Project window, find the Skybox material you imported and drag it into the Skybox Material field under Lighting Settings.
+
+Task 6: Configuring Lighting and Shadows
+Step 8: Lighting Settings
+Open Lighting Settings: Go to Window → Rendering → Lighting → Settings.
+Enable Baked Global Illumination: Ensure this is checked and select your preferred lighting mode (e.g., Baked Indirect).
+Set Environment Lighting:
+You can either use the Skybox for ambient lighting or choose a custom color under the Environment Lighting section.
+Enable Real-Time Shadows: Go to Quality Settings and set the Shadow Resolution to High.
+Adjust the Directional Light:
+In the Hierarchy, select your Directional Light.
+Set its Mode to Mixed or Real-time, and choose Soft Shadows.
+Bake Lighting: Once you're satisfied with your setup, click Generate Lighting in the Lighting Settings window to bake the lights and shadows for static objects.
+
+Task 7: Adding Audio
+Step 9: Importing and Adding Audio to Your Scene
+Download an Audio Asset:
+Open the Asset Store (Window → Asset Store).
+Search for an audio pack that fits your scene.
+After selecting, click Add to My Assets.
+Open Audio Pack in Unity: Once it’s added to your assets, click Open in Unity. This will open the Package Manager.
+Import the Audio Pack: Download the asset (if needed) and import it into your project.
+Access Audio Files: Once imported, the audio files will appear in your Project window under a new folder (e.g., Assets → AudioPack).
+Add Audio to Your Scene:
+To add audio, drag the audio file from the Project window into your Hierarchy.
+Unity will automatically create an Audio Source component for the audio file.
+
+Task 9: Write the VR Interaction Script
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VRMovement : MonoBehaviour
+{
+    public float speed = 3.0f;                // Speed of player movement
+    public float rotationSpeed = 100.0f;      // Speed of rotation
+
+    private CharacterController characterController;
+    private Transform cameraTransform;        // Main camera to determine forward direction
+
+    void Start()
+    {
+        characterController = GetComponent<CharacterController>();   // Get the Character Controller
+        cameraTransform = Camera.main.transform;                     // Get the main camera transform
+    }
+
+    void Update()
+    {
+        // Movement input (W, A, S, D or arrow keys)
+        float moveForward = Input.GetAxis("Vertical");    // W/S or Up/Down arrow keys
+        float moveRight = Input.GetAxis("Horizontal");    // A/D or Left/Right arrow keys
+
+        // Calculate movement direction relative to the camera's forward direction
+        Vector3 direction = cameraTransform.forward * moveForward + cameraTransform.right * moveRight;
+        direction.y = 0;  // Disable vertical movement (so it doesn't fly)
+
+        // Apply movement
+        characterController.Move(direction * speed * Time.deltaTime);
+
+        // Rotation input (Q, E or arrow keys)
+        if (Input.GetKey(KeyCode.Q))                      // Rotate left
+        {
+            transform.Rotate(Vector3.up, -rotationSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.E))                      // Rotate right
+        {
+            transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+        }
+    }
+}
+
+
+
+
+AASTHA KALE 
+BATCH C
+22000212
